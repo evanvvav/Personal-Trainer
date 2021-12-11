@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function Addcustomer({saveCustomer}) {
+export default function Editcustomer(props) {
 
     const [open, setOpen] = React.useState(false);
     
@@ -16,6 +16,9 @@ export default function Addcustomer({saveCustomer}) {
 
 
     const handleClickOpen = () => {
+    setCustomer({firstname: props.customer.firstname, lastname: props.customer.lastname,
+        streetaddress: props.customer.streetaddress, postcode: props.customer.postcode, 
+        city: props.customer.city, email: props.customer.email, phone: props.customer.phone})
     setOpen(true);
     };
 
@@ -27,22 +30,22 @@ export default function Addcustomer({saveCustomer}) {
 		setCustomer({...customer, [event.target.name]: event.target.value})
 	}
 
-    const addCustomer = () => {
-		saveCustomer(customer);
+    const updateCustomer = () => {
+		props.updateCustomer(customer, props.customer.links[1].href);
 		handleClose();
 	}
 
     return (
         <div>
             <Button style={{color: '#333'}} variant="text" onClick={handleClickOpen}>
-                Add Customer
+                Edit 
             </Button>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>New Customer</DialogTitle>
+                <DialogTitle>Edit Customer</DialogTitle>
                     <DialogContent>
                 
                     <TextField
-                    autoFocus
+                    autoFocuss
                     margin="dense"
                     name="firstname"
                                 value={customer.firstname}
@@ -114,7 +117,7 @@ export default function Addcustomer({saveCustomer}) {
                     </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={addCustomer}>Save</Button>
+                    <Button onClick={updateCustomer}>Save</Button>
                 </DialogActions>
             </Dialog>
         </div>
