@@ -6,6 +6,7 @@ import 'react-table/react-table.css';
 import Addcustomer from "./Addcustomer";
 import Stack from '@mui/material/Stack';
 import Editcustomer from "./Editcustomer";
+import Addtraining from "./Addtraining";
 
 export default function Customers() {
 
@@ -31,6 +32,19 @@ export default function Customers() {
         .catch(err=>console.error(err))
       }
 
+    const saveTraining = (training) => {
+        fetch('https://customerrest.herokuapp.com/api/training', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(training)
+          })
+          .then(res=> fetchData())
+          .catch(err=>console.error(err))
+        
+    }
+
     const updateCustomer = (customer, link) => {
         fetch(link, {
         method: 'PUT',
@@ -43,6 +57,7 @@ export default function Customers() {
       .catch(err => console.error(err))
         
     }
+
 
     const deleteCustomer = (link) => {
 
@@ -83,6 +98,7 @@ export default function Customers() {
             accessor: 'city'
         },
         {   
+            sortable: false,
             ortable: false,
             filterable: false,
             width: 100,
@@ -93,7 +109,14 @@ export default function Customers() {
             filterable: false,
             width: 100,
             accessor: 'links[1].href',
-            Cell: row => <Button style={{color: '#333'}} onClick={() => deleteCustomer(row.value)}>Delete</Button>
+            Cell: row => <Button style={{color: '#795ce0'}} onClick={() => deleteCustomer(row.value)}>Delete</Button>
+        },
+        {
+            sortable: false,
+            filterable: false,
+            width: 140,
+            accessor: 'links[2].href',
+            Cell: row => <Addtraining saveTraining={saveTraining} customer={row.original}/>
         }
     
 
@@ -103,7 +126,7 @@ export default function Customers() {
     return (  
         <div className="column">
         <Stack direction="row" spacing={2} > 
-        <h2>Customers</h2>
+        <h2 className="header">Customers</h2>
         <Addcustomer saveCustomer={saveCustomer}/>
         </Stack>
         <ReactTable filterable={true} data={customers} columns={columns}/>

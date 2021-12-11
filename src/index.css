@@ -17,8 +17,13 @@
 
 
 .navbar h1 {
-  color: #7FDBFF;
+  color: #795ce0;
 }
+
+.header {
+  color: #795ce0;
+}
+
 .navbar .links {
   margin-right: auto;
 }
@@ -28,7 +33,7 @@
   padding: 6px;
 }
 .navbar a:hover {
-  color: #7FDBFF;
+  color: #795ce0;
 }
 .content {
   max-width: 1600px;

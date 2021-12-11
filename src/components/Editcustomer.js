@@ -37,7 +37,7 @@ export default function Editcustomer(props) {
 
     return (
         <div>
-            <Button style={{color: '#333'}} variant="text" onClick={handleClickOpen}>
+            <Button style={{color: '#795ce0'}} variant="text" onClick={handleClickOpen}>
                 Edit 
             </Button>
             <Dialog open={open} onClose={handleClose}>
