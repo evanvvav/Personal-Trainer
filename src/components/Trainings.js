@@ -1,19 +1,11 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import ReactTable from 'react-table';
-import 'react-table/react-table.css'
+import 'react-table/react-table.css';
+import dayjs from "dayjs";
 
 const Trainings = () => {
 
-    function isEmpty(obj) {
-        for(var prop in obj) {
-          if(Object.prototype.hasOwnProperty.call(obj, prop)) {
-            return false;
-          }
-        }
-      
-        return JSON.stringify(obj) === JSON.stringify({});
-      }
 
     const [trainings, setTrainings] = useState([]);
 
@@ -25,6 +17,10 @@ const Trainings = () => {
         .then(data => setTrainings(data.content))
     }
 
+    const formatDate = (date) =>{
+        return dayjs(date).format('DD/MM/YYYY HH:mm')
+    }
+
     const columns = [
         {
             Header: 'Activity',
@@ -32,7 +28,8 @@ const Trainings = () => {
         },
         {
             Header: 'Date',
-            accessor: 'date'
+            id: 'dateId',
+            accessor: row => formatDate(row.date)
         },
         {
             Header: 'Duration (min)',
@@ -40,13 +37,6 @@ const Trainings = () => {
         },
      
     ]
-
-    let len = trainings.length;
-    for (let i = 0; i < len - 1; i++)
-    {
-        let date = new Date(trainings[i].date);
-        trainings[i].date = date.toLocaleString("en-US");
-    }
 
     return (  
         <div className="column">
