@@ -5,6 +5,16 @@ import 'react-table/react-table.css'
 
 const Trainings = () => {
 
+    function isEmpty(obj) {
+        for(var prop in obj) {
+          if(Object.prototype.hasOwnProperty.call(obj, prop)) {
+            return false;
+          }
+        }
+      
+        return JSON.stringify(obj) === JSON.stringify({});
+      }
+
     const [trainings, setTrainings] = useState([]);
 
     useEffect(() => fetchData(), []);
@@ -28,12 +38,15 @@ const Trainings = () => {
             Header: 'Duration (min)',
             accessor: 'duration'
         },
-        {
-            Header: 'Customer',
-            accessor: 'links[2].href'
-        }
      
     ]
+
+    let len = trainings.length;
+    for (let i = 0; i < len - 1; i++)
+    {
+        let date = new Date(trainings[i].date);
+        trainings[i].date = date.toLocaleString("en-US");
+    }
 
     return (  
         <div className="column">

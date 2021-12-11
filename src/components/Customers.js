@@ -43,6 +43,7 @@ const Customers = () => {
     
 
     ]
+    
 
     return (  
         <div className="column">
