@@ -38,7 +38,7 @@ export default function Addtraining({saveTraining, customer}) {
                 Add Training
             </Button>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>New Customer</DialogTitle>
+                <DialogTitle>New Training</DialogTitle>
                     <DialogContent>
                 
                     <TextField
